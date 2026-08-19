@@ -1,0 +1,59 @@
+[package]
+name = "desktop"
+version.workspace = true
+edition.workspace = true
+
+[[bin]]
+name = "code-architect"
+path = "src/main.rs"
+
+[build-dependencies]
+dotenvy.workspace = true
+
+[dependencies]
+async-trait.workspace = true
+architect-agent.workspace = true
+architect-config.workspace = true
+architect-core.workspace = true
+architect-docs.workspace = true
+architect-firefox.workspace = true
+architect-github.workspace = true
+architect-linear.workspace = true
+architect-llm.workspace = true
+architect-mcp.workspace = true
+architect-session.workspace = true
+architect-slack.workspace = true
+architect-tools.workspace = true
+architect-ui.workspace = true
+serde_json.workspace = true
+similar.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+uuid.workspace = true
+reqwest.workspace = true
+webbrowser.workspace = true
+sha2.workspace = true
+base64.workspace = true
+bytes.workspace = true
+rfd.workspace = true
+freya = { workspace = true, features = ["icons-lucide", "markdown", "code-editor"] }
+tracing.workspace = true
+tracing-subscriber.workspace = true
+tree-sitter = "0.26"
+tree-sitter-rust = "0.24"
+tree-sitter-python = "0.25"
+tree-sitter-javascript = "0.25"
+tree-sitter-typescript = "0.23"
+tree-sitter-json = "0.24"
+tree-sitter-bash = "0.25"
+
+[dev-dependencies]
+freya-testing.workspace = true
+rusqlite.workspace = true
+tempfile.workspace = true
+tokio = { version = "1", features = ["full"] }
+wiremock.workspace = true
+
+[features]
+devtools = ["freya/devtools"]
+perf = ["freya/performance"]

@@ -1,0 +1,28 @@
+[package]
+name = "architect-tools"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+architect-agent = { workspace = true }
+architect-core = { workspace = true }
+async-trait = { workspace = true }
+base64 = { workspace = true }
+futures-util = { workspace = true }
+glob = { workspace = true }
+globset = { workspace = true }
+ignore = { workspace = true }
+image = { workspace = true }
+libc = { workspace = true }
+regex = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+similar = { workspace = true }
+tokio = { workspace = true, features = ["process", "time", "sync", "io-util"] }
+tokio-util = { workspace = true }
+tracing = { workspace = true }
+xcap = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+tokio = { version = "1", features = ["full"] }

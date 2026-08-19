@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: code-architect-linux
+          - os: macos-latest
+            artifact: code-architect-macos
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # Installs the exact toolchain + components pinned in
+      # rust-toolchain.toml (1.96.0, rustfmt, clippy) — rustup, already
+      # present on GitHub's runners, does this automatically for any cargo
+      # invocation in a directory with that file.
+      - run: rustup show
+
+      - uses: Swatinem/rust-cache@v2
+
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfreetype6-dev libfontconfig1-dev libglvnd-dev libwayland-dev libpipewire-0.3-dev libgbm-dev
+
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace
+
+      - name: Build release binary
+        run: cargo build --release -p desktop
+        env:
+          # GitHub Actions won't allow repo secrets named GITHUB_* (a
+          # reserved prefix), so the GitHub OAuth credentials are stored
+          # under OAUTH_GITHUB_* and remapped to the env var names the
+          # build actually reads (see apps/desktop/build.rs). Forked-PR
+          # builds don't get repository secrets at all — build.rs already
+          # degrades to an empty, unconfigured value in that case, same as
+          # a contributor's machine with no .env.
+          GITHUB_CLIENT_ID: ${{ secrets.OAUTH_GITHUB_CLIENT_ID }}
+          GITHUB_CLIENT_SECRET: ${{ secrets.OAUTH_GITHUB_CLIENT_SECRET }}
+          SLACK_CLIENT_ID: ${{ secrets.SLACK_CLIENT_ID }}
+          LINEAR_CLIENT_ID: ${{ secrets.LINEAR_CLIENT_ID }}
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: target/release/code-architect
+          if-no-files-found: error

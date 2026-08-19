@@ -1,0 +1,17 @@
+[package]
+name = "architect-mcp"
+version.workspace = true
+edition.workspace = true
+
+[dependencies]
+architect-tools = { workspace = true }
+async-trait = { workspace = true }
+rmcp = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true, features = ["process"] }
+tracing = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
+tokio = { version = "1", features = ["full"] }

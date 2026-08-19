@@ -1,0 +1,70 @@
+[workspace]
+resolver = "3"
+members = [
+    "apps/desktop",
+    "crates/architect-agent",
+    "crates/architect-config",
+    "crates/architect-core",
+    "crates/architect-docs",
+    "crates/architect-firefox",
+    "crates/architect-github",
+    "crates/architect-linear",
+    "crates/architect-llm",
+    "crates/architect-mcp",
+    "crates/architect-session",
+    "crates/architect-slack",
+    "crates/architect-tools",
+    "crates/architect-ui",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+
+[workspace.dependencies]
+architect-agent = { path = "crates/architect-agent" }
+architect-config = { path = "crates/architect-config" }
+architect-core = { path = "crates/architect-core" }
+architect-docs = { path = "crates/architect-docs" }
+architect-firefox = { path = "crates/architect-firefox" }
+architect-github = { path = "crates/architect-github" }
+architect-linear = { path = "crates/architect-linear" }
+architect-llm = { path = "crates/architect-llm" }
+architect-mcp = { path = "crates/architect-mcp" }
+architect-session = { path = "crates/architect-session" }
+architect-slack = { path = "crates/architect-slack" }
+architect-tools = { path = "crates/architect-tools" }
+architect-ui = { path = "crates/architect-ui" }
+freya = "0.4.1"
+freya-testing = "0.4.1"
+tokio = { version = "1", features = ["macros", "net", "process", "rt-multi-thread", "sync", "time"] }
+rmcp = { version = "3", features = ["client", "transport-child-process", "transport-streamable-http-client-reqwest"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+anyhow = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+async-trait = "0.1"
+bytes = "1"
+futures-util = "0.3"
+reqwest = { version = "0.13.2", default-features = false, features = ["charset", "form", "http2", "json", "query", "rustls", "stream"] }
+tokio-util = "0.7"
+wiremock = "0.6"
+glob = "0.3"
+globset = "0.4"
+ignore = "0.4"
+regex = "1"
+rusqlite = { version = "0.37", features = ["bundled"] }
+serde_yaml = "0.9"
+similar = { version = "3", features = ["text"] }
+tempfile = "3"
+uuid = { version = "1", features = ["v4", "serde"] }
+webbrowser = "1"
+sha2 = "0.10"
+base64 = "0.22"
+dotenvy = "0.15"
+libc = "0.2"
+rfd = { version = "0.15", default-features = false, features = ["xdg-portal", "tokio"] }
+xcap = "0.9"
+image = { version = "0.25", default-features = false, features = ["png"] }
